@@ -2,3 +2,4 @@
 database/
 data.csv
 cache/
+src/__pycache__/

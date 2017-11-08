@@ -12,18 +12,19 @@ DB_csv = 'data.csv'
 class Database(object):
 
 	def __init__(self):
-		self.classes = []
 		self._gen_csv()
 		self.data = pd.read_csv(DB_csv)
+		self.classes = set(self.data["cls"])
 
 	def _gen_csv(self):
+		if os.path.exists(DB_csv):
+			return
 		with open(DB_csv, 'w', encoding='UTF-8') as f:
-			f.write("img,class")
+			f.write("img,cls")
 			for root, _, files in os.walk(DB_dir, topdown=False):
 				cls = root.split('/')[-1]
-				self.classes.append(cls)
 				for name in files:
-					if '.jpg' not in name:
+					if not name.endswith('.jpg'):
 						continue
 					img = os.path.join(root, name)
 					f.write("\n{},{}".format(img, cls))
@@ -45,4 +46,3 @@ if __name__ == "__main__":
 
 	print("DB length:", len(db))
 	print(classes)
-	print(data.loc[data["class"] == classes[0]])

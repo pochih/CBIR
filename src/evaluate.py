@@ -1,28 +1,33 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function
+
+from scipy import spatial
 import numpy as np
 
-def distance(v1, v2, type='d1'):
+
+def distance(v1, v2, d_type='d1'):
   assert v1.shape == v2.shape
 
-  if type == 'd1':
+  if d_type == 'd1':
     # return 1 - np.minimum(v1, v2) / np.minimum(v1.size, v2.size)
     return np.sum(np.absolute(v1 - v2))
-  elif type == 'd2':
+  elif d_type == 'd2':
     return 2 - 2 * np.dot(v1, v2)
-  elif type == 'd3':
+  elif d_type == 'd3':
     pass
-  elif type == 'd4':
+  elif d_type == 'd4':
     pass
-  elif type == 'd5':
+  elif d_type == 'd5':
     pass
-  elif type == 'd6':
+  elif d_type == 'd6':
     pass
-  elif type == 'd7':
+  elif d_type == 'd7':
     return 2 - 2 * np.dot(v1, v2)
-  elif type == 'd8':
+  elif d_type == 'd8':
     return 2 - 2 * np.dot(v1, v2)
+  elif d_type == 'cosine':
+    return spatial.distance.cosine(v1, v2)
 
 
 def AP(label, results, sort=True):
@@ -48,7 +53,7 @@ def AP(label, results, sort=True):
   return np.mean(precision)
 
 
-def infer(query, samples=None, db=None, sample_db_fn=None):
+def infer(query, samples=None, db=None, sample_db_fn=None, d_type='d1'):
   ''' infer a query, return it's ap
 
     arguments
@@ -76,7 +81,7 @@ def infer(query, samples=None, db=None, sample_db_fn=None):
     if q_img == s_img:
       continue
     results.append({
-                    'dis': distance(q_hist, s_hist),
+                    'dis': distance(q_hist, s_hist, d_type=d_type),
                     'cls': s_cls
                   })
   results = sorted(results, key=lambda x: x['dis'])
@@ -85,7 +90,7 @@ def infer(query, samples=None, db=None, sample_db_fn=None):
   return ap, results
 
 
-def evaluate(db, sample_db_fn):
+def evaluate(db, sample_db_fn, d_type='d1'):
   ''' infer the whole database
 
     arguments
@@ -98,7 +103,7 @@ def evaluate(db, sample_db_fn):
 
   samples = sample_db_fn(db)
   for query in samples:
-    ap, _ = infer(query, samples=samples)
+    ap, _ = infer(query, samples=samples, d_type=d_type)
     ret[query['cls']].append(ap)
 
   return ret

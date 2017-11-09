@@ -4,6 +4,7 @@ from __future__ import print_function
 
 from evaluate import *
 from DB import Database
+
 from six.moves import cPickle
 import numpy as np
 import scipy.misc
@@ -11,10 +12,10 @@ import itertools
 import os
 
 # configs for histogram
-n_bin    = 4
-n_slice  = 4
+n_bin    = 10
+n_slice  = 10
 h_type   = 'region'
-d_type   = 'd1'
+d_type   = 'cosine'
 
 ''' MMAP
       bin4,slice10,MMAP 0.232772046495
@@ -102,10 +103,10 @@ def make_sample(db, verbose=True):
   try:
     samples = cPickle.load(open(os.path.join(cache_dir, sample_cache), "rb", True))
     if verbose:
-      print("Using cache..., config=%s" % sample_cache)
+      print("Using cache..., config=%s, distance=%s" % (sample_cache, d_type))
   except:
     if verbose:
-      print("Counting histogram..., config=%s" % sample_cache)
+      print("Counting histogram..., config=%s, distance=%s" % (sample_cache, d_type))
     samples = []
     data = db.get_data()
     for d in data.itertuples():
@@ -149,11 +150,11 @@ if __name__ == "__main__":
   IMG2 = sigmoid(np.random.randn(4,4,3)) * 255
   IMG2 = IMG2.astype(int)
   hist2 = histogram(IMG2, type='region', n_bin=4, n_slice=2)
-  assert distance(hist, hist2, type='d1') == 2
-  assert distance(hist, hist2, type='d2') == 2
+  assert distance(hist, hist2, d_type='d1') == 2
+  assert distance(hist, hist2, d_type='d2') == 2
 
   # evaluate database
-  APs = evaluate(db, sample_db_fn=make_sample)
+  APs = evaluate(db, sample_db_fn=make_sample, d_type=d_type)
   cls_MAPs = []
   for cls, cls_APs in APs.items():
     MAP = np.mean(cls_APs)

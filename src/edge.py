@@ -17,7 +17,20 @@ n_slice  = 10
 h_type   = 'region'
 d_type   = 'cosine'
 
+depth    = 5
+
 ''' MMAP
+     depth
+      depthNone, region-stride(1, 1)-n_slice10,co, MMAP 0.101670982288
+      depth100,  region-stride(1, 1)-n_slice10,co, MMAP 0.207817305128
+      depth30,   region-stride(1, 1)-n_slice10,co, MMAP 0.291715090839
+      depth10,   region-stride(1, 1)-n_slice10,co, MMAP 0.353722379063
+      depth5,    region-stride(1, 1)-n_slice10,co, MMAP 0.367119444444
+      depth3,    region-stride(1, 1)-n_slice10,co, MMAP 0.3585
+      depth1,    region-stride(1, 1)-n_slice10,co, MMAP 0.302
+
+      (exps below use depth=None)
+
      d_type
       global-stride(2, 2),d1, MMAP 0.0530993236031
       global-stride(2, 2),co, MMAP 0.0528310744618
@@ -151,10 +164,10 @@ def make_sample(db, verbose=True):
     for sample in samples:
       sample['hist'] /= np.sum(sample['hist'])  # normalize
     if verbose:
-      print("Using cache..., config=%s, distance=%s" % (sample_cache, d_type))
+      print("Using cache..., config=%s, distance=%s, depth=%s" % (sample_cache, d_type, depth))
   except:
     if verbose:
-      print("Counting histogram..., config=%s, distance=%s" % (sample_cache, d_type))
+      print("Counting histogram..., config=%s, distance=%s, depth=%s" % (sample_cache, d_type, depth))
 
     samples = []
     data = db.get_data()
@@ -178,7 +191,7 @@ if __name__ == "__main__":
   assert edge_kernels.shape == (5, 2, 2)
 
   # evaluate database
-  APs = evaluate(db, sample_db_fn=make_sample, d_type=d_type)
+  APs = evaluate(db, sample_db_fn=make_sample, d_type=d_type, depth=depth)
   cls_MAPs = []
   for cls, cls_APs in APs.items():
     MAP = np.mean(cls_APs)

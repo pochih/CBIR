@@ -149,10 +149,10 @@ def make_sample(db, verbose=True):
       sample['hist'] /= np.sum(sample['hist'])  # normalize
     cPickle.dump(samples, open(os.path.join(cache_dir, sample_cache), "wb", True))
     if verbose:
-      print("Using cache..., config=%s, distance=%s" % (sample_cache, d_type))
+      print("Using cache..., config=%s, distance=%s, depth=%s" % (sample_cache, d_type, depth))
   except:
     if verbose:
-      print("Counting histogram..., config=%s, distance=%s" % (sample_cache, d_type))
+      print("Counting histogram..., config=%s, distance=%s, depth=%s" % (sample_cache, d_type, depth))
 
     vgg_model = VGGNet(requires_grad=False, model=VGG_model)
     vgg_model.eval()

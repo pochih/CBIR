@@ -128,10 +128,10 @@ def make_sample(db, verbose=True):
   try:
     samples = cPickle.load(open(os.path.join(cache_dir, sample_cache), "rb", True))
     if verbose:
-      print("Using cache..., config=%s, distance=%s" % (sample_cache, d_type))
+      print("Using cache..., config=%s, distance=%s, depth=%s" % (sample_cache, d_type, depth))
   except:
     if verbose:
-      print("Counting histogram..., config=%s, distance=%s" % (sample_cache, d_type))
+      print("Counting histogram..., config=%s, distance=%s, depth=%s" % (sample_cache, d_type, depth))
     samples = []
     data = db.get_data()
     for d in data.itertuples():

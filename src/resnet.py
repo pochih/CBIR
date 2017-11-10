@@ -124,10 +124,10 @@ def make_sample(db, verbose=True):
     for sample in samples:
       sample['hist'] /= np.sum(sample['hist'])  # normalize
     if verbose:
-      print("Using cache..., config=%s, distance=%s" % (sample_cache, d_type))
+      print("Using cache..., config=%s, distance=%s, depth=%s" % (sample_cache, d_type, depth))
   except:
     if verbose:
-      print("Counting histogram..., config=%s, distance=%s" % (sample_cache, d_type))
+      print("Counting histogram..., config=%s, distance=%s, depth=%s" % (sample_cache, d_type, depth))
 
     res_model = ResidualNet(model=RES_model)
     res_model.eval()

@@ -22,12 +22,25 @@ step       = 10
 radius     = 30
 rings      = 2
 histograms = 6
-h_type     = 'global'
+h_type     = 'region'
 d_type     = 'd1'
+
+depth      = 3
 
 R = (rings * histograms + 1) * n_orient
 
 ''' MMAP
+     depth
+      depthNone, daisy-region-n_slice2-n_orient8-step10-radius30-rings2-histograms6, distance=d1, MMAP 0.162806083971
+      depth100,  daisy-region-n_slice2-n_orient8-step10-radius30-rings2-histograms6, distance=d1, MMAP 0.269333190731
+      depth30,   daisy-region-n_slice2-n_orient8-step10-radius30-rings2-histograms6, distance=d1, MMAP 0.388199474789
+      depth10,   daisy-region-n_slice2-n_orient8-step10-radius30-rings2-histograms6, distance=d1, MMAP 0.468182738095
+      depth5,    daisy-region-n_slice2-n_orient8-step10-radius30-rings2-histograms6, distance=d1, MMAP 0.497688888889
+      depth3,    daisy-region-n_slice2-n_orient8-step10-radius30-rings2-histograms6, distance=d1, MMAP 0.499833333333
+      depth1,    daisy-region-n_slice2-n_orient8-step10-radius30-rings2-histograms6, distance=d1, MMAP 0.448
+
+      (exps below use depth=None)
+
      d_type
       daisy-global-n_orient8-step180-radius58-rings2-histograms6, distance=d1, MMAP 0.101883969577
       daisy-global-n_orient8-step180-radius58-rings2-histograms6, distance=cosine, MMAP 0.104779921854
@@ -113,10 +126,10 @@ def make_sample(db, verbose=True):
     for sample in samples:
       sample['hist'] /= np.sum(sample['hist'])  # normalize
     if verbose:
-      print("Using cache..., config=%s, distance=%s" % (sample_cache, d_type))
+      print("Using cache..., config=%s, distance=%s, depth=%s" % (sample_cache, d_type, depth))
   except:
     if verbose:
-      print("Counting histogram..., config=%s, distance=%s" % (sample_cache, d_type))
+      print("Counting histogram..., config=%s, distance=%s, depth=%s" % (sample_cache, d_type, depth))
 
     samples = []
     data = db.get_data()
@@ -137,7 +150,7 @@ if __name__ == "__main__":
   db = Database()
 
   # evaluate database
-  APs = evaluate(db, sample_db_fn=make_sample, d_type=d_type)
+  APs = evaluate(db, sample_db_fn=make_sample, d_type=d_type, depth=depth)
   cls_MAPs = []
   for cls, cls_APs in APs.items():
     MAP = np.mean(cls_APs)

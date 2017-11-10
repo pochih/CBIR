@@ -21,7 +21,20 @@ c_p_b    = (1, 1)
 h_type   = 'region'
 d_type   = 'd1'
 
+depth    = 5
+
 ''' MMAP
+     depth
+      depthNone, HOG-region-n_bin10-n_slice6-n_orient8-ppc(2, 2)-cpb(1, 1), distance=d1, MMAP 0.155887235348
+      depth100,  HOG-region-n_bin10-n_slice6-n_orient8-ppc(2, 2)-cpb(1, 1), distance=d1, MMAP 0.261149622088
+      depth30,   HOG-region-n_bin10-n_slice6-n_orient8-ppc(2, 2)-cpb(1, 1), distance=d1, MMAP 0.371054105819
+      depth10,   HOG-region-n_bin10-n_slice6-n_orient8-ppc(2, 2)-cpb(1, 1), distance=d1, MMAP 0.449627835097
+      depth5,    HOG-region-n_bin10-n_slice6-n_orient8-ppc(2, 2)-cpb(1, 1), distance=d1, MMAP 0.465333333333
+      depth3,    HOG-region-n_bin10-n_slice6-n_orient8-ppc(2, 2)-cpb(1, 1), distance=d1, MMAP 0.463833333333
+      depth1,    HOG-region-n_bin10-n_slice6-n_orient8-ppc(2, 2)-cpb(1, 1), distance=d1, MMAP 0.398
+
+      (exps below use depth=None)
+
      ppc & cpb
       HOG-global-n_bin10-n_orient8-ppc(2, 2)-cpb(1, 1), distance=d1, MMAP 0.105569494513
       HOG-global-n_bin10-n_orient8-ppc(32, 32)-cpb(1, 1), distance=d1, MMAP 0.0945343258574
@@ -119,10 +132,10 @@ def make_sample(db, verbose=True):
     for sample in samples:
       sample['hist'] /= np.sum(sample['hist'])  # normalize
     if verbose:
-      print("Using cache..., config=%s, distance=%s" % (sample_cache, d_type))
+      print("Using cache..., config=%s, distance=%s, depth=%s" % (sample_cache, d_type, depth))
   except:
     if verbose:
-      print("Counting histogram..., config=%s, distance=%s" % (sample_cache, d_type))
+      print("Counting histogram..., config=%s, distance=%s, depth=%s" % (sample_cache, d_type, depth))
 
     samples = []
     data = db.get_data()
@@ -143,7 +156,7 @@ if __name__ == "__main__":
   db = Database()
 
   # evaluate database
-  APs = evaluate(db, sample_db_fn=make_sample, d_type=d_type)
+  APs = evaluate(db, sample_db_fn=make_sample, d_type=d_type, depth=depth)
   cls_MAPs = []
   for cls, cls_APs in APs.items():
     MAP = np.mean(cls_APs)

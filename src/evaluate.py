@@ -45,10 +45,10 @@ def AP(label, results, sort=True):
     results = sorted(results, key=lambda x: x['dis'])
   precision = []
   hit = 0
-  for idx, result in enumerate(results):
+  for i, result in enumerate(results):
     if result['cls'] == label:
       hit += 1
-      precision.append(hit / (idx+1.))
+      precision.append(hit / (i+1.))
   if hit == 0:
     return 0.
   return np.mean(precision)
@@ -80,8 +80,6 @@ def infer(query, samples=None, db=None, sample_db_fn=None, depth=None, d_type='d
   q_img, q_cls, q_hist = query['img'], query['cls'], query['hist']
   results = []
   for idx, sample in enumerate(samples):
-    if depth and idx >= depth:
-      break
     s_img, s_cls, s_hist = sample['img'], sample['cls'], sample['hist']
     if q_img == s_img:
       continue
@@ -90,7 +88,8 @@ def infer(query, samples=None, db=None, sample_db_fn=None, depth=None, d_type='d
                     'cls': s_cls
                   })
   results = sorted(results, key=lambda x: x['dis'])
-  print(q_cls, results)
+  if depth:
+    results = results[:depth]
   ap = AP(q_cls, results, sort=False)
 
   return ap, results

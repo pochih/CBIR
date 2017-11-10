@@ -11,25 +11,38 @@ import scipy.misc
 import itertools
 import os
 
+
 # configs for histogram
-n_bin    = 10
-n_slice  = 10
-h_type   = 'region'
-d_type   = 'cosine'
+n_bin    = 12        # histogram bins
+n_slice  = 3         # slice image
+h_type   = 'region'  # global or region
+d_type   = 'd1'      # distance type
 
 ''' MMAP
-      bin4,slice10,MMAP 0.232772046495
-      bin6,slcie3,MMAP 0.262819311357
-      bin8,slice6,MMAP 0.25908443026
-      bin10,slice4,MMAP 0.269872790396
-      bin12,slice2,MMAP 0.266076627332
-      bin12,slice3,MMAP 0.273745840034
-      bin12,slice4,MMAP 0.271520862017
-      bin14,slice3,MMAP 0.272386552594
-      bin14,slice5,MMAP 0.266877181379
-      bin16,slice3,MMAP 0.273716788003
-      bin16,slice4,MMAP 0.272221031804
-      bin16,slice8,MMAP 0.253823360098
+     d_type
+      global,bin6,d1,MMAP 0.242345913685
+      global,bin6,cosine,MMAP 0.184176505586
+
+     n_bin
+      region,bin10,slice4,d1,MMAP 0.269872790396
+      region,bin12,slice4,d1,MMAP 0.271520862017
+
+      region,bin6,slcie3,d1,MMAP 0.262819311357
+      region,bin12,slice3,d1,MMAP 0.273745840034
+
+     n_slice
+      region,bin12,slice2,d1,MMAP 0.266076627332
+      region,bin12,slice3,d1,MMAP 0.273745840034
+      region,bin12,slice4,d1,MMAP 0.271520862017
+      region,bin14,slice3,d1,MMAP 0.272386552594
+      region,bin14,slice5,d1,MMAP 0.266877181379
+      region,bin16,slice3,d1,MMAP 0.273716788003
+      region,bin16,slice4,d1,MMAP 0.272221031804
+      region,bin16,slice8,d1,MMAP 0.253823360098
+
+     h_type
+      region,bin4,slice2,d1,MMAP 0.23358615622
+      global,bin4,d1,MMAP 0.229125435746
 '''
 
 # cache dir
@@ -49,10 +62,9 @@ def histogram(input, n_bin=n_bin, type=h_type, n_slice=n_slice, normalize=True):
       n_slice  : work when type equals to 'region', height & width will equally sliced into N slices
       normalize: normalize output histogram
   '''
-  try:
-    assert isinstance(input, np.ndarray)  # examinate input type
+  if isinstance(input, np.ndarray):  # examinate input type
     img = input.copy()
-  except:
+  else:
     img = scipy.misc.imread(input, mode='RGB')
   height, width, channel = img.shape
   bins = np.linspace(0, 256, n_bin+1, endpoint=True)  # slice bins equally for each channel
@@ -128,7 +140,7 @@ if __name__ == "__main__":
 
   # test normalize
   hist = histogram(data.ix[0,0], type='global')
-  assert hist.sum() - 1 < 1e-9
+  assert hist.sum() - 1 < 1e-9, "normalize false"
 
   # test histogram bins
   def sigmoid(z):
@@ -138,9 +150,9 @@ if __name__ == "__main__":
   IMG = sigmoid(np.random.randn(2,2,3)) * 255
   IMG = IMG.astype(int)
   hist = histogram(IMG, type='global', n_bin=4)
-  assert np.equal(np.where(hist > 0)[0], np.array([37, 43, 58, 61])).all()  # judge global histogram
+  assert np.equal(np.where(hist > 0)[0], np.array([37, 43, 58, 61])).all(), "global histogram implement failed"
   hist = histogram(IMG, type='region', n_bin=4, n_slice=2)
-  assert np.equal(np.where(hist > 0)[0], np.array([58, 125, 165, 235])).all()  # judge region histogram
+  assert np.equal(np.where(hist > 0)[0], np.array([58, 125, 165, 235])).all(), "region histogram implement failed"
 
   # examinate distance
   np.random.seed(1)
@@ -150,8 +162,8 @@ if __name__ == "__main__":
   IMG2 = sigmoid(np.random.randn(4,4,3)) * 255
   IMG2 = IMG2.astype(int)
   hist2 = histogram(IMG2, type='region', n_bin=4, n_slice=2)
-  assert distance(hist, hist2, d_type='d1') == 2
-  assert distance(hist, hist2, d_type='d2') == 2
+  assert distance(hist, hist2, d_type='d1') == 2, "d1 implement failed"
+  assert distance(hist, hist2, d_type='d2') == 2, "d2 implement failed"
 
   # evaluate database
   APs = evaluate(db, sample_db_fn=make_sample, d_type=d_type)

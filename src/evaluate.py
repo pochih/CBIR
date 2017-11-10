@@ -7,10 +7,9 @@ import numpy as np
 
 
 def distance(v1, v2, d_type='d1'):
-  assert v1.shape == v2.shape
+  assert v1.shape == v2.shape, "shape of two vectors need to be same!"
 
   if d_type == 'd1':
-    # return 1 - np.minimum(v1, v2) / np.minimum(v1.size, v2.size)
     return np.sum(np.absolute(v1 - v2))
   elif d_type == 'd2':
     return 2 - 2 * np.dot(v1, v2)
@@ -50,10 +49,12 @@ def AP(label, results, sort=True):
     if result['cls'] == label:
       hit += 1
       precision.append(hit / (idx+1.))
+  if hit == 0:
+    return 0.
   return np.mean(precision)
 
 
-def infer(query, samples=None, db=None, sample_db_fn=None, d_type='d1'):
+def infer(query, samples=None, db=None, sample_db_fn=None, depth=None, d_type='d1'):
   ''' infer a query, return it's ap
 
     arguments
@@ -69,14 +70,18 @@ def infer(query, samples=None, db=None, sample_db_fn=None, d_type='d1'):
                               }
       db          : an instance of class Database
       sample_db_fn: a function making samples, should be given if Database != None
+      depth       : retrieved depth during inference, the default depth is equal to database size
+      d_type      : distance type
   '''
-  assert samples != None or (db != None and sample_db_fn != None)
+  assert samples != None or (db != None and sample_db_fn != None), "need to give either samples or db plus sample_db_fn"
   if db:
     samples = sample_db_fn(db)
 
   q_img, q_cls, q_hist = query['img'], query['cls'], query['hist']
   results = []
-  for sample in samples:
+  for idx, sample in enumerate(samples):
+    if depth and idx >= depth:
+      break
     s_img, s_cls, s_hist = sample['img'], sample['cls'], sample['hist']
     if q_img == s_img:
       continue
@@ -85,25 +90,27 @@ def infer(query, samples=None, db=None, sample_db_fn=None, d_type='d1'):
                     'cls': s_cls
                   })
   results = sorted(results, key=lambda x: x['dis'])
+  print(q_cls, results)
   ap = AP(q_cls, results, sort=False)
 
   return ap, results
 
 
-def evaluate(db, sample_db_fn, d_type='d1'):
+def evaluate(db, sample_db_fn, depth=None, d_type='d1'):
   ''' infer the whole database
 
     arguments
       db          : an instance of class Database
       sample_db_fn: a function making samples, should be given if Database != None
-                    
+      depth       : retrieved depth during inference, the default depth is equal to database size
+      d_type      : distance type
   '''
   classes = db.get_class()
   ret = {c: [] for c in classes}
 
   samples = sample_db_fn(db)
   for query in samples:
-    ap, _ = infer(query, samples=samples, d_type=d_type)
+    ap, _ = infer(query, samples=samples, depth=depth, d_type=d_type)
     ret[query['cls']].append(ap)
 
   return ret

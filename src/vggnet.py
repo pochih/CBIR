@@ -21,11 +21,24 @@ from DB import Database
 '''
 
 # configs for histogram
-VGG_model  = 'vgg19'
-pick_layer = 'avg'
-d_type     = 'cosine'
+VGG_model  = 'vgg19'  # model type
+pick_layer = 'avg'    # extract feature of this layer
+d_type     = 'd1'     # distance type
+
+depth      = 3        # retrieved depth, set to None will count the ap for whole database
 
 ''' MMAP
+     depth
+      depthNone, vgg19,avg,d1, MMAP 0.688624709114
+      depth100,  vgg19,avg,d1, MMAP 0.754443491363
+      depth30,   vgg19,avg,d1, MMAP 0.838298388513
+      depth10,   vgg19,avg,d1, MMAP 0.913892057193
+      depth5,    vgg19,avg,d1, MMAP 0.936158333333
+      depth3,    vgg19,avg,d1, MMAP 0.941666666667
+      depth1,    vgg19,avg,d1, MMAP 0.934
+
+      (exps below use depth=None)
+
       vgg19,fc1,d1, MMAP 0.245548035893 (w/o subtract mean)
       vgg19,fc1,d1, MMAP 0.332583126964
       vgg19,fc1,co, MMAP 0.333836506148
@@ -179,7 +192,7 @@ def make_sample(db, verbose=True):
 if __name__ == "__main__":
   # evaluate database
   db = Database()
-  APs = evaluate(db, sample_db_fn=make_sample, d_type=d_type)
+  APs = evaluate(db, sample_db_fn=make_sample, d_type=d_type, depth=depth)
   cls_MAPs = []
   for cls, cls_APs in APs.items():
     MAP = np.mean(cls_APs)

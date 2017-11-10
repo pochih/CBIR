@@ -23,16 +23,30 @@ from DB import Database
 '''
 
 # configs for histogram
-RES_model  = 'resnet152'
-pick_layer = 'fc'
-d_type     = 'd1'
+RES_model  = 'resnet152'  # model type
+pick_layer = 'avg'        # extract feature of this layer
+d_type     = 'd1'         # distance type
+
+depth = 3  # retrieved depth, set to None will count the ap for whole database
 
 ''' MMAP
+     depth
+      depthNone, resnet152,avg,d1, MMAP 0.78474710149
+      depth100,  resnet152,avg,d1, MMAP 0.819713653589
+      depth30,   resnet152,avg,d1, MMAP 0.884925001919
+      depth10,   resnet152,avg,d1, MMAP 0.944355078125
+      depth5,    resnet152,avg,d1, MMAP 0.961788675194
+      depth3,    resnet152,avg,d1, MMAP 0.965623938039
+      depth1,    resnet152,avg,d1, MMAP 0.958696281702
+
+      (exps below use depth=None)
+
       resnet34,avg,cosine, MMAP 0.755842698037
       resnet101,avg,cosine, MMAP 0.757435452078
       resnet101,avg,d1, MMAP 0.764556148137
       resnet152,avg,cosine, MMAP 0.776918319273
       resnet152,avg,d1, MMAP 0.78474710149
+      resnet152,max,d1, MMAP 0.748099342614
       resnet152,fc,cosine, MMAP 0.776918319273
       resnet152,fc,d1, MMAP 0.70010267663
 '''
@@ -87,11 +101,15 @@ class ResidualNet(ResNet):
     x = self.layer2(x)
     x = self.layer3(x)
     x = self.layer4(x)  # x after layer4, shape = N * 512 * H/32 * W/32
-    avg_pool = torch.nn.AvgPool2d(x.size(-1), stride=x.size(-1), padding=0, ceil_mode=False, count_include_pad=True)
+    max_pool = torch.nn.MaxPool2d((x.size(-2),x.size(-1)), stride=(x.size(-2),x.size(-1)), padding=0, ceil_mode=False)
+    Max = max_pool(x)  # avg.size = N * 512 * 1 * 1
+    Max = Max.view(Max.size(0), -1)  # avg.size = N * 512
+    avg_pool = torch.nn.AvgPool2d((x.size(-2),x.size(-1)), stride=(x.size(-2),x.size(-1)), padding=0, ceil_mode=False, count_include_pad=True)
     avg = avg_pool(x)  # avg.size = N * 512 * 1 * 1
     avg = avg.view(avg.size(0), -1)  # avg.size = N * 512
     fc = self.fc(avg)  # fc.size = N * 1000
     output = {
+        'max': Max,
         'avg': avg,
         'fc' : fc
     }
@@ -149,7 +167,7 @@ def make_sample(db, verbose=True):
 if __name__ == "__main__":
   # evaluate database
   db = Database()
-  APs = evaluate(db, sample_db_fn=make_sample, d_type=d_type)
+  APs = evaluate(db, sample_db_fn=make_sample, d_type=d_type, depth=depth)
   cls_MAPs = []
   for cls, cls_APs in APs.items():
     MAP = np.mean(cls_APs)

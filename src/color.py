@@ -13,12 +13,25 @@ import os
 
 
 # configs for histogram
-n_bin    = 12        # histogram bins
-n_slice  = 3         # slice image
-h_type   = 'region'  # global or region
-d_type   = 'd1'      # distance type
+n_bin   = 12        # histogram bins
+n_slice = 3         # slice image
+h_type  = 'region'  # global or region
+d_type  = 'd1'      # distance type
+
+depth   = 3         # retrieved depth, set to None will count the ap for whole database
 
 ''' MMAP
+     depth
+      depthNone, region,bin12,slice3, distance=d1, MMAP 0.273745840034
+      depth100,  region,bin12,slice3, distance=d1, MMAP 0.406007856783
+      depth30,   region,bin12,slice3, distance=d1, MMAP 0.516738512679
+      depth10,   region,bin12,slice3, distance=d1, MMAP 0.614047666604
+      depth5,    region,bin12,slice3, distance=d1, MMAP 0.650125
+      depth3,    region,bin12,slice3, distance=d1, MMAP 0.657166666667
+      depth1,    region,bin12,slice3, distance=d1, MMAP 0.62
+
+     (exps below use depth=None)
+     
      d_type
       global,bin6,d1,MMAP 0.242345913685
       global,bin6,cosine,MMAP 0.184176505586
@@ -166,7 +179,7 @@ if __name__ == "__main__":
   assert distance(hist, hist2, d_type='d2') == 2, "d2 implement failed"
 
   # evaluate database
-  APs = evaluate(db, sample_db_fn=make_sample, d_type=d_type)
+  APs = evaluate(db, sample_db_fn=make_sample, d_type=d_type, depth=depth)
   cls_MAPs = []
   for cls, cls_APs in APs.items():
     MAP = np.mean(cls_APs)

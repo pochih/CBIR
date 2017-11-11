@@ -93,7 +93,7 @@ def edge_histogram(input, stride=(2, 2), type=h_type, n_slice=n_slice, normalize
       n_slice  : work when type equals to 'region', height & width will equally sliced into N slices
       normalize: normalize output histogram
 
-    output
+    return
       type == 'global'
         a numpy array with size len(edge_kernels)
       type == 'region'

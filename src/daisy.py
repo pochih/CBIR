@@ -66,7 +66,7 @@ def daisy_histogram(input, type=h_type, n_slice=n_slice, normalize=True):
       n_slice  : work when type equals to 'region', height & width will equally sliced into N slices
       normalize: normalize output histogram
 
-    output
+    return
       type == 'global'
         a numpy array with size R
       type == 'region'

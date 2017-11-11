@@ -74,6 +74,12 @@ def histogram(input, n_bin=n_bin, type=h_type, n_slice=n_slice, normalize=True):
                  'region' means count the histogram for regions in images, then concatanate all of them
       n_slice  : work when type equals to 'region', height & width will equally sliced into N slices
       normalize: normalize output histogram
+
+    return
+      type == 'global'
+        a numpy array with size n_bin ** channel
+      type == 'region'
+        a numpy array with size n_slice * n_slice * (n_bin ** channel)
   '''
   if isinstance(input, np.ndarray):  # examinate input type
     img = input.copy()

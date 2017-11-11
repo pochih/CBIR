@@ -78,7 +78,7 @@ def HOG_histogram(input, n_bin=n_bin, type=h_type, n_slice=n_slice, normalize=Tr
       n_slice  : work when type equals to 'region', height & width will equally sliced into N slices
       normalize: normalize output histogram
 
-    output
+    return
       type == 'global'
         a numpy array with size n_bin
       type == 'region'

@@ -8,10 +8,11 @@ from torchvision import models
 from torchvision.models.vgg import VGG
 
 from six.moves import cPickle
+import numpy as np
 import scipy.misc
 import os
 
-from evaluate import *
+from evaluate import evaluate_class
 from DB import Database
 
 
@@ -140,59 +141,61 @@ def make_layers(cfg, batch_norm=False):
   return nn.Sequential(*layers)
 
 
-def make_sample(db, verbose=True):
-  sample_cache = '{}-{}'.format(VGG_model, pick_layer)
+class VGGNetFeat(object):
 
-  try:
-    samples = cPickle.load(open(os.path.join(cache_dir, sample_cache), "rb", True))
-    for sample in samples:
-      sample['hist'] /= np.sum(sample['hist'])  # normalize
-    cPickle.dump(samples, open(os.path.join(cache_dir, sample_cache), "wb", True))
-    if verbose:
-      print("Using cache..., config=%s, distance=%s, depth=%s" % (sample_cache, d_type, depth))
-  except:
-    if verbose:
-      print("Counting histogram..., config=%s, distance=%s, depth=%s" % (sample_cache, d_type, depth))
-
-    vgg_model = VGGNet(requires_grad=False, model=VGG_model)
-    vgg_model.eval()
-    if use_gpu:
-      vgg_model = vgg_model.cuda()
-    samples = []
-    data = db.get_data()
-    for d in data.itertuples():
-      d_img, d_cls = getattr(d, "img"), getattr(d, "cls")
-      img = scipy.misc.imread(d_img, mode="RGB")
-      img = img[:, :, ::-1]  # switch to BGR
-      img = np.transpose(img, (2, 0, 1)) / 255.
-      img[0] -= means[0]  # reduce B's mean
-      img[1] -= means[1]  # reduce G's mean
-      img[2] -= means[2]  # reduce R's mean
-      img = np.expand_dims(img, axis=0)
-      try:
-        if use_gpu:
-          inputs = torch.autograd.Variable(torch.from_numpy(img).cuda().float())
-        else:
-          inputs = torch.autograd.Variable(torch.from_numpy(img).float())
-        d_hist = vgg_model(inputs)[pick_layer]
-        d_hist = np.sum(d_hist.data.cpu().numpy(), axis=0)
-        d_hist /= np.sum(d_hist)  # normalize
-        samples.append({
-                        'img':  d_img, 
-                        'cls':  d_cls, 
-                        'hist': d_hist
-                       })
-      except:
-        pass
-    cPickle.dump(samples, open(os.path.join(cache_dir, sample_cache), "wb", True))
-
-  return samples
+  def make_samples(self, db, verbose=True):
+    sample_cache = '{}-{}'.format(VGG_model, pick_layer)
+  
+    try:
+      samples = cPickle.load(open(os.path.join(cache_dir, sample_cache), "rb", True))
+      for sample in samples:
+        sample['hist'] /= np.sum(sample['hist'])  # normalize
+      cPickle.dump(samples, open(os.path.join(cache_dir, sample_cache), "wb", True))
+      if verbose:
+        print("Using cache..., config=%s, distance=%s, depth=%s" % (sample_cache, d_type, depth))
+    except:
+      if verbose:
+        print("Counting histogram..., config=%s, distance=%s, depth=%s" % (sample_cache, d_type, depth))
+  
+      vgg_model = VGGNet(requires_grad=False, model=VGG_model)
+      vgg_model.eval()
+      if use_gpu:
+        vgg_model = vgg_model.cuda()
+      samples = []
+      data = db.get_data()
+      for d in data.itertuples():
+        d_img, d_cls = getattr(d, "img"), getattr(d, "cls")
+        img = scipy.misc.imread(d_img, mode="RGB")
+        img = img[:, :, ::-1]  # switch to BGR
+        img = np.transpose(img, (2, 0, 1)) / 255.
+        img[0] -= means[0]  # reduce B's mean
+        img[1] -= means[1]  # reduce G's mean
+        img[2] -= means[2]  # reduce R's mean
+        img = np.expand_dims(img, axis=0)
+        try:
+          if use_gpu:
+            inputs = torch.autograd.Variable(torch.from_numpy(img).cuda().float())
+          else:
+            inputs = torch.autograd.Variable(torch.from_numpy(img).float())
+          d_hist = vgg_model(inputs)[pick_layer]
+          d_hist = np.sum(d_hist.data.cpu().numpy(), axis=0)
+          d_hist /= np.sum(d_hist)  # normalize
+          samples.append({
+                          'img':  d_img, 
+                          'cls':  d_cls, 
+                          'hist': d_hist
+                         })
+        except:
+          pass
+      cPickle.dump(samples, open(os.path.join(cache_dir, sample_cache), "wb", True))
+  
+    return samples
 
 
 if __name__ == "__main__":
   # evaluate database
   db = Database()
-  APs = evaluate(db, sample_db_fn=make_sample, d_type=d_type, depth=depth)
+  APs = evaluate_class(db, f_class=VGGNetFeat, d_type=d_type, depth=depth)
   cls_MAPs = []
   for cls, cls_APs in APs.items():
     MAP = np.mean(cls_APs)

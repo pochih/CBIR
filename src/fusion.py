@@ -15,6 +15,7 @@ from resnet import ResNetFeat
 
 import numpy as np
 import itertools
+import os
 
 
 d_type   = 'd1'
@@ -22,22 +23,30 @@ depth    = 30
 
 feat_pools = ['color', 'daisy', 'edge', 'gabor', 'hog', 'vgg', 'res']
 
+# result dir
+result_dir = 'result'
+if not os.path.exists(result_dir):
+  os.makedirs(result_dir)
+
 
 class FeatureFusion(object):
 
   def __init__(self, features):
     assert len(features) > 1, "need to fuse more than one feature!"
     self.features = features
+    self.samples  = None
 
   def make_samples(self, db, verbose=False):
     if verbose:
       print("Use features {}".format(" & ".join(self.features)))
 
-    feats = []
-    for f_class in self.features:
-      feats.append(self._get_feat(db, f_class))
-    samples = self._concat_feat(db, feats)
-    return samples
+    if self.samples == None:
+      feats = []
+      for f_class in self.features:
+        feats.append(self._get_feat(db, f_class))
+      samples = self._concat_feat(db, feats)
+      self.samples = samples  # cache the result
+    return self.samples
 
   def _get_feat(self, db, f_class):
     if f_class == 'color':
@@ -86,7 +95,7 @@ class FeatureFusion(object):
 
 
 def evaluate_feats(db, N, feat_pools=feat_pools, d_type='d1', depths=[None, 300, 200, 100, 50, 30, 10, 5, 3, 1]):
-  result = open('feature_fusion-{}-{}feats.csv'.format(d_type, N), 'w')
+  result = open(os.path.join(result_dir, 'feature_fusion-{}-{}feats.csv'.format(d_type, N)), 'w')
   for i in range(N):
     result.write("feat{},".format(i))
   result.write("depth,distance,MMAP")

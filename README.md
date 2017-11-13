@@ -1,4 +1,6 @@
-# CBIR
+[![Open Source Love](https://badges.frapsoft.com/os/mit/mit.svg?v=102)](https://github.com/ellerbrock/open-source-badge/)
+
+# CBIR 
 __This repo implements a CBIR (content-based image retrieval) system, can be divided to two parts.__
 <img align='center' style="border-color:gray;border-width:2px;border-style:dashed"   src='https://github.com/brianhuang1019/CBIR/blob/img/CBIR.png' padding='5px' height="400px"></img>
 <a href='https://winstonhsu.info/2017f-mmai/'>Image src</a>

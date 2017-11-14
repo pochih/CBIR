@@ -18,6 +18,8 @@ def distance(v1, v2, d_type='d1'):
   if d_type == 'd1':
     return np.sum(np.absolute(v1 - v2))
   elif d_type == 'd2':
+    return np.sum((v1 - v2) ** 2)
+  elif d_type == 'd2-norm':
     return 2 - 2 * np.dot(v1, v2)
   elif d_type == 'd3':
     pass

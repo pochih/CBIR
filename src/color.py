@@ -185,7 +185,7 @@ if __name__ == "__main__":
   IMG2 = IMG2.astype(int)
   hist2 = color.histogram(IMG2, type='region', n_bin=4, n_slice=2)
   assert distance(hist, hist2, d_type='d1') == 2, "d1 implement failed"
-  assert distance(hist, hist2, d_type='d2') == 2, "d2 implement failed"
+  assert distance(hist, hist2, d_type='d2-norm') == 2, "d2 implement failed"
 
   # evaluate database
   APs = evaluate_class(db, f_class=Color, d_type=d_type, depth=depth)

@@ -49,3 +49,12 @@ Robustness of system is evaluated by MMAP (mean MAP)
 <a href='http://web.stanford.edu/class/cs276/handouts/EvaluationNew-handout-1-per.pdf'>Image src</a>
 
 implementation of this part can found at [evaluate.py](https://github.com/brianhuang1019/CBIR/blob/master/src/evaluate.py)
+
+
+## Part3: results
+my database contains 25 classes, each class with 20 images
+(show result at depth=10)
+
+Method | color | daisy | edge | gabor | HOG | vgg19 | resnet152
+--- | --- | --- | --- |--- |--- |--- |---
+Mean MAP | 0.614 | 0.468 | 0.301 | 0.346 | 0.450 | 0.914 | 0.944

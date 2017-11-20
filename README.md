@@ -62,6 +62,7 @@ implementation of this part can found at [evaluate.py](https://github.com/brianh
 #### query <img align='center' style="border-color:gray;border-width:2px;border-style:dashed" src='retrieval_result/query1-women_dress/query1.jpg' padding='5px' height="80px"></img>
 #### color <img align='center' style="border-color:gray;border-width:2px;border-style:dashed" src='retrieval_result/query1-women_dress/query1-color.jpg' padding='5px' height="80px"></img>
 #### daisy <img align='center' style="border-color:gray;border-width:2px;border-style:dashed" src='retrieval_result/query1-women_dress/query1-daisy.jpg' padding='5px' height="80px"></img>
+#### edge <img align='center' style="border-color:gray;border-width:2px;border-style:dashed" src='retrieval_result/query1-women_dress/query1-edge.jpg' padding='5px' height="80px"></img>
 #### gabor <img align='center' style="border-color:gray;border-width:2px;border-style:dashed" src='retrieval_result/query1-women_dress/query1-gabor.jpg' padding='5px' height="80px"></img>
 #### HOG <img align='center' style="border-color:gray;border-width:2px;border-style:dashed" src='retrieval_result/query1-women_dress/query1-hog.jpg' padding='5px' height="80px"></img>
 #### VGG19 <img align='center' style="border-color:gray;border-width:2px;border-style:dashed" src='retrieval_result/query1-women_dress/query1-vgg.jpg' padding='5px' height="80px"></img>
@@ -71,6 +72,7 @@ implementation of this part can found at [evaluate.py](https://github.com/brianh
 #### query <img align='center' style="border-color:gray;border-width:2px;border-style:dashed" src='retrieval_result/query2-orange/query2.jpg' padding='5px' height="80px"></img>
 #### color <img align='center' style="border-color:gray;border-width:2px;border-style:dashed" src='retrieval_result/query2-orange/query2-color.jpg' padding='5px' height="80px"></img>
 #### daisy <img align='center' style="border-color:gray;border-width:2px;border-style:dashed" src='retrieval_result/query2-orange/query2-daisy.jpg' padding='5px' height="80px"></img>
+#### edge <img align='center' style="border-color:gray;border-width:2px;border-style:dashed" src='retrieval_result/query2-orange/query2-edge.jpg' padding='5px' height="80px"></img>
 #### gabor <img align='center' style="border-color:gray;border-width:2px;border-style:dashed" src='retrieval_result/query2-orange/query2-gabor.jpg' padding='5px' height="80px"></img>
 #### HOG <img align='center' style="border-color:gray;border-width:2px;border-style:dashed" src='retrieval_result/query2-orange/query2-hog.jpg' padding='5px' height="80px"></img>
 #### VGG19 <img align='center' style="border-color:gray;border-width:2px;border-style:dashed" src='retrieval_result/query2-orange/query2-vgg.jpg' padding='5px' height="80px"></img>
@@ -80,6 +82,7 @@ implementation of this part can found at [evaluate.py](https://github.com/brianh
 #### query <img align='center' style="border-color:gray;border-width:2px;border-style:dashed" src='retrieval_result/query3-nba_jersey/query3.jpg' padding='5px' height="80px"></img>
 #### color <img align='center' style="border-color:gray;border-width:2px;border-style:dashed" src='retrieval_result/query3-nba_jersey/query3-color.jpg' padding='5px' height="80px"></img>
 #### daisy <img align='center' style="border-color:gray;border-width:2px;border-style:dashed" src='retrieval_result/query3-nba_jersey/query3-daisy.jpg' padding='5px' height="80px"></img>
+#### edge <img align='center' style="border-color:gray;border-width:2px;border-style:dashed" src='retrieval_result/query3-nba_jersey/query3-edge.jpg' padding='5px' height="80px"></img>
 #### gabor <img align='center' style="border-color:gray;border-width:2px;border-style:dashed" src='retrieval_result/query3-nba_jersey/query3-gabor.jpg' padding='5px' height="80px"></img>
 #### HOG <img align='center' style="border-color:gray;border-width:2px;border-style:dashed" src='retrieval_result/query3-nba_jersey/query3-hog.jpg' padding='5px' height="80px"></img>
 #### VGG19 <img align='center' style="border-color:gray;border-width:2px;border-style:dashed" src='retrieval_result/query3-nba_jersey/query3-vgg.jpg' padding='5px' height="80px"></img>
@@ -89,6 +92,7 @@ implementation of this part can found at [evaluate.py](https://github.com/brianh
 #### query <img align='center' style="border-color:gray;border-width:2px;border-style:dashed" src='retrieval_result/query4-snack/query4.jpg' padding='5px' height="80px"></img>
 #### color <img align='center' style="border-color:gray;border-width:2px;border-style:dashed" src='retrieval_result/query4-snack/query4-color.jpg' padding='5px' height="80px"></img>
 #### daisy <img align='center' style="border-color:gray;border-width:2px;border-style:dashed" src='retrieval_result/query4-snack/query4-daisy.jpg' padding='5px' height="80px"></img>
+#### edge <img align='center' style="border-color:gray;border-width:2px;border-style:dashed" src='retrieval_result/query4-snack/query4-edge.jpg' padding='5px' height="80px"></img>
 #### gabor <img align='center' style="border-color:gray;border-width:2px;border-style:dashed" src='retrieval_result/query4-snack/query4-gabor.jpg' padding='5px' height="80px"></img>
 #### HOG <img align='center' style="border-color:gray;border-width:2px;border-style:dashed" src='retrieval_result/query4-snack/query4-hog.jpg' padding='5px' height="80px"></img>
 #### VGG19 <img align='center' style="border-color:gray;border-width:2px;border-style:dashed" src='retrieval_result/query4-snack/query4-vgg.jpg' padding='5px' height="80px"></img>

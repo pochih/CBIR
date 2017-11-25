@@ -1,14 +1,14 @@
 ![MIT](https://badges.frapsoft.com/os/mit/mit.svg?v=102)
 
-# CBIR 
+## Intro 
 __This repo implements a CBIR (content-based image retrieval) system__
-<img align='center' style="border-color:gray;border-width:2px;border-style:dashed"   src='https://github.com/brianhuang1019/CBIR/blob/img/CBIR.png' padding='5px' height="400px"></img>
-<a href='https://winstonhsu.info/2017f-mmai/'>Image src</a>
+<img align='center' style="border-color:gray;border-width:2px;border-style:dashed"   src='https://github.com/brianhuang1019/CBIR/blob/img/CBIR.png' padding='5px' height="300px"></img>
+<h6><a href='https://winstonhsu.info/2017f-mmai/'>Image src</a></h6>
 
 
 ## Part1: feature extraction
 
-Implement several popular image features:
+In this system, I implement several popular image features:
 - color-based
   - [RGB histogram](https://github.com/brianhuang1019/CBIR/blob/master/src/color.py)
 - texture-based
@@ -32,32 +32,30 @@ The curse of dimensionality told that vectors in high dimension will sometime lo
 - [Random Projection](https://github.com/brianhuang1019/CBIR/blob/master/src/random_projection.py)
 
 
+
 ## Part2: evaluation
 
-CBIR system retrieval k images based on features similarity (L1 distance)
+CBIR system retrieval images based on feature similarity
 
-Robustness of system is evaluated by MMAP (mean MAP)
+Robustness of system is evaluated by MMAP (mean MAP), the evaluation method is refer to <a href='http://web.stanford.edu/class/cs276/handouts/EvaluationNew-handout-1-per.pdf' target="_blank">here</a>
 
 - image AP   : mean of precision at each hit
 - class1 MAP = (class1.img[0].AP + class1.img[1].AP + ... + class1.img[M].AP) / M
 - MMAP       = (class1.MAP + class2.MAP + ... + classN.MAP) / N
 
-<img align='center' style="border-color:gray;border-width:2px;border-style:dashed"   src='https://github.com/brianhuang1019/CBIR/blob/img/AP.png' padding='5px' height="380px"></img>
-<a href='http://web.stanford.edu/class/cs276/handouts/EvaluationNew-handout-1-per.pdf'>Image src</a>
+My database contains 25 classes, each class with 20 images
 
-<img align='center' style="border-color:gray;border-width:2px;border-style:dashed"   src='https://github.com/brianhuang1019/CBIR/blob/img/MAP.png' padding='5px' height="380px"></img>
-<a href='http://web.stanford.edu/class/cs276/handouts/EvaluationNew-handout-1-per.pdf'>Image src</a>
-
-my database contains 25 classes, each class with 20 images
+Implementation of evaluation can found at [evaluate.py](https://github.com/brianhuang1019/CBIR/blob/master/src/evaluate.py)
 
 Method | color | daisy | edge | gabor | HOG | vgg19 | resnet152
 --- | --- | --- | --- |--- |--- |--- |---
 Mean MAP (depth=10) | 0.614 | 0.468 | 0.301 | 0.346 | 0.450 | 0.914 | 0.944
 
-implementation of this part can found at [evaluate.py](https://github.com/brianhuang1019/CBIR/blob/master/src/evaluate.py)
 
 
 ## Part3: image retrieval
+Let me show some results of the system
+
 ### query1 - women dress
 #### query <img align='center' style="border-color:gray;border-width:2px;border-style:dashed" src='retrieval_result/query1-women_dress/query1.jpg' padding='5px' height="80px"></img>
 #### color <img align='center' style="border-color:gray;border-width:2px;border-style:dashed" src='retrieval_result/query1-women_dress/query1-color.jpg' padding='5px' height="80px"></img>

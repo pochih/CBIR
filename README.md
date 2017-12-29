@@ -1,4 +1,4 @@
-![MIT](https://badges.frapsoft.com/os/mit/mit.svg?v=102)
+[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source-150x25.png?v=103)](https://github.com/ellerbrock/open-source-badges/)
 
 ## Intro 
 __This repo implements a CBIR (content-based image retrieval) system__

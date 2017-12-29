@@ -96,3 +96,7 @@ Let me show some results of the system
 #### HOG <img align='center' style="border-color:gray;border-width:2px;border-style:dashed" src='retrieval_result/query4-snack/query4-hog.jpg' padding='5px' height="80px"></img>
 #### VGG19 <img align='center' style="border-color:gray;border-width:2px;border-style:dashed" src='retrieval_result/query4-snack/query4-vgg.jpg' padding='5px' height="80px"></img>
 #### Resnet152 <img align='center' style="border-color:gray;border-width:2px;border-style:dashed" src='retrieval_result/query4-snack/query4-res.jpg' padding='5px' height="80px"></img>
+
+
+## Author
+Po-Chih Huang / [@brianhuang1019](http://brianhuang1019.github.io/)

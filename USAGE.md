@@ -28,7 +28,7 @@ see the picture for details:
 
 <img align='center' style="border-color:gray;border-width:2px;border-style:dashed"   src='https://github.com/brianhuang1019/CBIR/blob/img/database.png' padding='5px'></img>
 
-In my database, there are 20 classes, each class has its own directory,
+In my database, there are 25 classes, each class has its own directory,
 
 and the images belong to this class should put into this directory.
 

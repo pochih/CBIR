@@ -98,5 +98,15 @@ Let me show some results of the system
 #### Resnet152 <img align='center' style="border-color:gray;border-width:2px;border-style:dashed" src='result/retrieval_result/query4-snack/query4-res.jpg' padding='5px' height="80px"></img>
 
 
+
+## Part4: usage of repository
+If you are interesting with the results, and want to try your own images.
+
+Please refer to [USAGE.md](https://github.com/brianhuang1019/CBIR/blob/master/USAGE.md)
+
+The details are written inside.
+
+
+
 ## Author
 Po-Chih Huang / [@brianhuang1019](http://brianhuang1019.github.io/)

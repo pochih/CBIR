@@ -2,7 +2,7 @@
 
 Let me show you how to use the code.
 
-It can divided to two part.
+It can divided to two parts.
 
 ### Part1: make your image database
 When you clone the repository, it will look like this:

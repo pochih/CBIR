@@ -61,11 +61,13 @@ python3 src/HOG.py
 ```
 
 #### For VGG19
+You need to install pytorch0.2 to run the code
 ```python
 python3 src/vggnet.py
 ```
 
 #### For ResNet152
+You need to install pytorch0.2 to run the code
 ```python
 python3 src/resnet.py
 ```

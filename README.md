@@ -29,7 +29,7 @@ Some features are not robust enough, and turn to feature fusion
 - [fusion.py](https://github.com/brianhuang1019/CBIR/blob/master/src/fusion.py)
 
 ### Dimension Reduction
-The curse of dimensionality told that vectors in high dimension will sometime lose distance property
+The curse of dimensionality told that vectors in high dimension will sometimes lose distance property
 - [Random Projection](https://github.com/brianhuang1019/CBIR/blob/master/src/random_projection.py)
 
 
@@ -40,13 +40,16 @@ CBIR system retrieval images based on feature similarity
 
 Robustness of system is evaluated by MMAP (mean MAP), the evaluation method is refer to <a href='http://web.stanford.edu/class/cs276/handouts/EvaluationNew-handout-1-per.pdf' target="_blank">here</a>
 
-- image AP   : mean of precision at each hit
-- class1 MAP = (class1.img[0].AP + class1.img[1].AP + ... + class1.img[M].AP) / M
+- image AP   : average of precision at each hit
+  - depth=K means the system will return top-K images
+  - a correct image in top-K is called a hit
+  - AP = (hit1.precision + hit2.precision + ... + hitH.precision) / H
+- class1 MAP = (class1.img1.AP + class1.img2.AP + ... + class1.imgM.AP) / M
 - MMAP       = (class1.MAP + class2.MAP + ... + classN.MAP) / N
 
-My database contains 25 classes, each class with 20 images
-
 Implementation of evaluation can found at [evaluate.py](https://github.com/brianhuang1019/CBIR/blob/master/src/evaluate.py)
+
+My database contains 25 classes, each class with 20 images, 500 images in total, depth=K will return top-K images from database
 
 Method | color | daisy | edge | gabor | HOG | vgg19 | resnet152
 --- | --- | --- | --- |--- |--- |--- |---
@@ -100,7 +103,7 @@ Let me show some results of the system
 
 
 ## Part4: usage of repository
-If you are interesting with the results, and want to try your own images.
+If you are interesting with the results, and want to try your own images,
 
 Please refer to [USAGE.md](https://github.com/brianhuang1019/CBIR/blob/master/USAGE.md)
 

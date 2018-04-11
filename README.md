@@ -57,7 +57,7 @@ Mean MAP (depth=10) | 0.614 | 0.468 | 0.301 | 0.346 | 0.450 | 0.914 | 0.944
 
 
 
-## Part3: image retrieval
+## Part3: image retrieval (return top 5 of each method)
 Let me show some results of the system
 
 ### query1 - women dress

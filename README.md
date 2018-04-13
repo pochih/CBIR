@@ -38,9 +38,9 @@ The curse of dimensionality told that vectors in high dimension will sometimes l
 
 ## Part2: evaluation
 
-CBIR system retrieval images based on feature similarity
+CBIR system retrieves images based on __feature similarity__
 
-Robustness of system is evaluated by MMAP (mean MAP), the evaluation method is refer to <a href='http://web.stanford.edu/class/cs276/handouts/EvaluationNew-handout-1-per.pdf' target="_blank">here</a>
+Robustness of system is evaluated by MMAP (mean MAP), the evaluation formulas is refer to <a href='http://web.stanford.edu/class/cs276/handouts/EvaluationNew-handout-1-per.pdf' target="_blank">here</a>
 
 - image AP   : average of precision at each hit
   - depth=K means the system will return top-K images

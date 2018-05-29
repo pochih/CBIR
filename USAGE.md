@@ -26,7 +26,7 @@ In this directory, each image class should have its own directory
 
 see the picture for details:
 
-<img align='center' style="border-color:gray;border-width:2px;border-style:dashed"   src='https://github.com/brianhuang1019/CBIR/blob/img/database.png' padding='5px'></img>
+<img align='center' style="border-color:gray;border-width:2px;border-style:dashed"   src='https://github.com/pochih/CBIR/blob/img/database.png' padding='5px'></img>
 
 In my database, there are 25 classes, each class has its own directory,
 
@@ -78,16 +78,16 @@ There are some advanced issue such as features fusion and dimension reduction,
 
 the intro of these parts will be written further in the future :D
 
-### Appendix 1: feature fusion
+### Appendix: feature fusion
 I implement the basic feature fusion method -- concatenation.
 
-Codes for feature fusion is written in [fusion.py](https://github.com/brianhuang1019/CBIR/blob/master/src/fusion.py)
+Codes for feature fusion is written in [fusion.py](https://github.com/pochih/CBIR/blob/master/src/fusion.py)
 
 In fusion.py, there is a class called *FeatureFusion*.
 
 You can create a *FeatureFusion* instance with an argument called **features**.
 
-For example, in [fusion.py line140](https://github.com/brianhuang1019/CBIR/blob/master/src/fusion.py#L140)
+For example, in [fusion.py line140](https://github.com/pochih/CBIR/blob/master/src/fusion.py#L140)
 ```python
 fusion = FeatureFusion(features=['color', 'daisy'])
 APs = evaluate_class(db, f_instance=fusion, d_type=d_type, depth=depth)
@@ -95,7 +95,7 @@ APs = evaluate_class(db, f_instance=fusion, d_type=d_type, depth=depth)
 - The first line means to concatenate color featrue and daisy feature.
 - The second line means to evaluate with the concatenated feature.
 
-If you want to know the performance of all possible feature combination, look at [fusion.py line122](https://github.com/brianhuang1019/CBIR/blob/master/src/fusion.py#L122) for example
+If you want to know the performance of all possible feature combination, look at [fusion.py line122](https://github.com/pochih/CBIR/blob/master/src/fusion.py#L122) for example
 ```python
 evaluate_feats(db, N=2, d_type='d1')
 ```
@@ -104,4 +104,4 @@ evaluate_feats(db, N=2, d_type='d1')
 - Function *evaluate_feats* will generate a result file that record performances for all feature concatenation.
 
 ## Author
-Po-Chih Huang / [@brianhuang1019](http://brianhuang1019.github.io/)
+Po-Chih Huang / [@pochih](http://pochih.github.io/)

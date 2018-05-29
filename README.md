@@ -5,7 +5,7 @@ __This repository contains a CBIR (content-based image retrieval) system__
 
 __Extract query image's feature, and retrieve similar ones from image database__
 
-<img align='center' style="border-color:gray;border-width:2px;border-style:dashed"   src='https://github.com/brianhuang1019/CBIR/blob/img/CBIR.png' padding='5px' height="300px"></img>
+<img align='center' style="border-color:gray;border-width:2px;border-style:dashed"   src='https://github.com/pochih/CBIR/blob/img/CBIR.png' padding='5px' height="300px"></img>
 <h6><a href='https://winstonhsu.info/2017f-mmai/'>Image src</a></h6>
 
 
@@ -13,26 +13,26 @@ __Extract query image's feature, and retrieve similar ones from image database__
 
 In this system, I implement several popular image features:
 - color-based
-  - [RGB histogram](https://github.com/brianhuang1019/CBIR/blob/master/src/color.py)
+  - [RGB histogram](https://github.com/pochih/CBIR/blob/master/src/color.py)
 - texture-based
-  - [gabor filter](https://github.com/brianhuang1019/CBIR/blob/master/src/gabor.py)
+  - [gabor filter](https://github.com/pochih/CBIR/blob/master/src/gabor.py)
 - shape-based
-  - [daisy](https://github.com/brianhuang1019/CBIR/blob/master/src/daisy.py)
-  - [edge histogram](https://github.com/brianhuang1019/CBIR/blob/master/src/edge.py)
-  - [HOG (histogram of gradient)](https://github.com/brianhuang1019/CBIR/blob/master/src/HOG.py)
+  - [daisy](https://github.com/pochih/CBIR/blob/master/src/daisy.py)
+  - [edge histogram](https://github.com/pochih/CBIR/blob/master/src/edge.py)
+  - [HOG (histogram of gradient)](https://github.com/pochih/CBIR/blob/master/src/HOG.py)
 - deep methods
-  - [VGG net](https://github.com/brianhuang1019/CBIR/blob/master/src/vggnet.py)
-  - [Residual net](https://github.com/brianhuang1019/CBIR/blob/master/src/resnet.py)
+  - [VGG net](https://github.com/pochih/CBIR/blob/master/src/vggnet.py)
+  - [Residual net](https://github.com/pochih/CBIR/blob/master/src/resnet.py)
 
 ##### *all features are modulized*
 
 ### Feature Fusion
 Some features are not robust enough, and turn to feature fusion
-- [fusion.py](https://github.com/brianhuang1019/CBIR/blob/master/src/fusion.py)
+- [fusion.py](https://github.com/pochih/CBIR/blob/master/src/fusion.py)
 
 ### Dimension Reduction
 The curse of dimensionality told that vectors in high dimension will sometimes lose distance property
-- [Random Projection](https://github.com/brianhuang1019/CBIR/blob/master/src/random_projection.py)
+- [Random Projection](https://github.com/pochih/CBIR/blob/master/src/random_projection.py)
 
 
 
@@ -49,7 +49,7 @@ Robustness of system is evaluated by MMAP (mean MAP), the evaluation formulas is
 - class1 MAP = (class1.img1.AP + class1.img2.AP + ... + class1.imgM.AP) / M
 - MMAP       = (class1.MAP + class2.MAP + ... + classN.MAP) / N
 
-Implementation of evaluation can found at [evaluate.py](https://github.com/brianhuang1019/CBIR/blob/master/src/evaluate.py)
+Implementation of evaluation can found at [evaluate.py](https://github.com/pochih/CBIR/blob/master/src/evaluate.py)
 
 My database contains 25 classes, each class with 20 images, 500 images in total, depth=K will return top-K images from database
 
@@ -107,11 +107,11 @@ Let me show some results of the system
 ## Part4: usage of repository
 If you are interesting with the results, and want to try your own images,
 
-Please refer to [USAGE.md](https://github.com/brianhuang1019/CBIR/blob/master/USAGE.md)
+Please refer to [USAGE.md](https://github.com/pochih/CBIR/blob/master/USAGE.md)
 
 The details are written inside.
 
 
 
 ## Author
-Po-Chih Huang / [@brianhuang1019](http://brianhuang1019.github.io/)
+Po-Chih Huang / [@pochih](http://pochih.github.io/)

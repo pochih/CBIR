@@ -1,4 +1,4 @@
-# pylint: disable=invalid-name,missing-docstring,exec-used,too-many-arguments,too-few-public-methods,no-self-use,too-many-locals,line-too-long,redefined-builtin,redefined-outer-name,bare-except
+# pylint: disable=invalid-name,missing-docstring,exec-used,too-many-arguments,too-few-public-methods,no-self-use,too-many-locals,line-too-long,broad-except
 
 from __future__ import print_function
 
@@ -144,7 +144,7 @@ class ResNetFeat:
             if verbose:
                 print("Using cache..., config=%s, distance=%s, depth=%s" %
                       (sample_cache, d_type, depth))
-        except:
+        except BaseException:
             if verbose:
                 print("Counting histogram..., config=%s, distance=%s, depth=%s" %
                       (sample_cache, d_type, depth))
@@ -181,7 +181,7 @@ class ResNetFeat:
                         'cls':  d_cls,
                         'hist': d_hist
                     })
-                except:
+                except BaseException:
                     pass
             cPickle.dump(samples, open(os.path.join(
                 cache_dir, sample_cache), "wb", True))
@@ -191,8 +191,8 @@ class ResNetFeat:
 
 if __name__ == "__main__":
     # evaluate database
-    db = Database()
-    APs = evaluate_class(db, f_class=ResNetFeat, d_type=d_type, depth=depth)
+    DB = Database()
+    APs = evaluate_class(DB, f_class=ResNetFeat, d_type=d_type, depth=depth)
     cls_MAPs = []
 
     for cls, cls_APs in APs.items():

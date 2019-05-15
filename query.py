@@ -19,7 +19,7 @@ query_idx = 0
 if __name__ == '__main__':
     db = Database()
 
-    # methods to call
+    # methods to use
     methods = {
         "color": Color,
         "daisy": Daisy,
@@ -34,7 +34,8 @@ if __name__ == '__main__':
         mthd = sys.argv[1].lower()
     except IndexError:
         print("usage: {} <method>".format(sys.argv[0]))
-        print("supported methods:\ncolor, daisy, edge, gabor, HOG, vgg, resnet")
+        print("supported methods:\ncolor, daisy, edge, gabor, hog, vgg, resnet")
+
         sys.exit(1)
 
     # call make_samples(db) accordingly
@@ -44,4 +45,8 @@ if __name__ == '__main__':
     query = samples[query_idx]
 
     _, result = infer(query, samples=samples, depth=depth, d_type=d_type)
-    print(result)
+
+    for match in result:
+        print("{}:\t{},\tClass {}".format(match["img"],
+                                          match["dis"],
+                                          match["cls"]))

@@ -43,6 +43,7 @@ if __name__ == '__main__':
 
     # query the first img in data.csv
     query = samples[query_idx]
+    print("\n[+] query: {}\n".format(query["img"]))
 
     _, result = infer(query, samples=samples, depth=depth, d_type=d_type)
 

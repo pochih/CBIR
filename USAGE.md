@@ -44,19 +44,22 @@ result looks like
 ```text
 $ .venv/bin/python query.py resnet
 Using cache..., config=resnet152-avg, distance=d1, depth=3
-database/store/qingfeng.jpg:    0.41925543546676636,    Class store
-database/store/qingfeng-2.jpg:  0.559502124786377,      Class store
-database/vim/vim-01.jpg:        0.7149869799613953,     Class vim
-database/vim/vim-03.jpg:        0.7975158095359802,     Class vim
-database/vim/vim-02.jpg:        0.818065881729126,      Class vim
+
+[+] query: database/vim/vim-02.jpg
+
+database/vim/vim-01.jpg:        0.4892213046550751,     Class vim
+database/vim/vim-03.jpg:        0.5926028490066528,     Class vim
+database/emacs/emacs-02.jpg:    0.7468970417976379,     Class emacs
+database/emacs/emacs-01.jpg:    0.7663252353668213,     Class emacs
+database/store/qingfeng-1.jpg:  0.818065881729126,      Class store
 
 $ cat data.csv
 img,cls
+database/vim/vim-02.jpg,vim
 database/store/qingfeng-1.jpg,store
 database/vim/vim-04.jpg,vim
 database/vim/vim-01.jpg,vim
 database/vim/vim-03.jpg,vim
-database/vim/vim-02.jpg,vim
 database/store/qingfeng-2.jpg,store
 database/store/qingfeng.jpg,store
 database/emacs/emacs-01.jpg,emacs

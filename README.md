@@ -9,7 +9,7 @@ __Extract query image's feature, and retrieve similar ones from image database__
 <h6><a href='https://winstonhsu.info/2017f-mmai/'>Image src</a></h6>
 
 
-## Part1: feature extraction
+## Part1: Feature Extraction
 
 In this system, I implement several popular image features:
 - color-based
@@ -36,7 +36,7 @@ The curse of dimensionality told that vectors in high dimension will sometimes l
 
 
 
-## Part2: evaluation
+## Part2: Evaluation
 
 CBIR system retrieves images based on __feature similarity__
 
@@ -59,7 +59,7 @@ Mean MAP (depth=10) | 0.614 | 0.468 | 0.301 | 0.346 | 0.450 | 0.914 | 0.944
 
 
 
-## Part3: image retrieval (return top 5 of each method)
+## Part3: Image Retrieval (return top 5 of each method)
 Let me show some results of the system
 
 ### query1 - women dress
@@ -104,7 +104,7 @@ Let me show some results of the system
 
 
 
-## Part4: usage of repository
+## Part4: Usage of Repository
 If you are interesting with the results, and want to try your own images,
 
 Please refer to [USAGE.md](https://github.com/pochih/CBIR/blob/master/USAGE.md)

@@ -33,7 +33,38 @@ In my database, there are 25 classes, each class has its own directory,
 and the images belong to this class should put into this directory.
 
 ### Part2: run the code
+
+#### For image retrieval test
+
 I implement several algorithm, you can run it with python3.
+If you need to test with one of the algorithms, please use `query.py <method to test>`, by default the image being queried is the first one in `data.csv`
+
+result looks like
+
+```text
+$ .venv/bin/python query.py resnet
+Using cache..., config=resnet152-avg, distance=d1, depth=3
+
+[+] query: database/vim/vim-02.jpg
+
+database/vim/vim-01.jpg:        0.4892213046550751,     Class vim
+database/vim/vim-03.jpg:        0.5926028490066528,     Class vim
+database/emacs/emacs-02.jpg:    0.7468970417976379,     Class emacs
+database/emacs/emacs-01.jpg:    0.7663252353668213,     Class emacs
+database/store/qingfeng-1.jpg:  0.818065881729126,      Class store
+
+$ cat data.csv
+img,cls
+database/vim/vim-02.jpg,vim
+database/store/qingfeng-1.jpg,store
+database/vim/vim-04.jpg,vim
+database/vim/vim-01.jpg,vim
+database/vim/vim-03.jpg,vim
+database/store/qingfeng-2.jpg,store
+database/store/qingfeng.jpg,store
+database/emacs/emacs-01.jpg,emacs
+database/emacs/emacs-02.jpg,emacs
+```
 
 #### For RGB histogram
 ```python

@@ -1,3 +1,6 @@
 {
-  "python.linting.pylintArgs": ["--disable=C0111"]
+  "python.linting.pylintArgs": [
+    "--disable=C0111",
+    "--extension-pkg-whitelist=cv2"
+  ]
 }

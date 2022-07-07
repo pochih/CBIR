@@ -11,9 +11,9 @@ from scipy import ndimage as ndi
 
 import multiprocessing
 
-from six.moves import cPickle
+import pickle
 import numpy as np
-import scipy.misc
+import cv2
 import os
 
 
@@ -108,7 +108,8 @@ class Gabor(object):
         if isinstance(input, np.ndarray):  # examinate input type
             img = input.copy()
         else:
-            img = scipy.misc.imread(input, mode='RGB')
+            img = cv2.imread(input, cv2.IMREAD_COLOR)
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         height, width, channel = img.shape
 
         if type == 'global':
@@ -200,7 +201,7 @@ class Gabor(object):
                 h_type, n_slice, theta, frequency, sigma, bandwidth)
 
         try:
-            samples = cPickle.load(
+            samples = pickle.load(
                 open(os.path.join(cache_dir, sample_cache), "rb", True))
             for sample in samples:
                 sample['hist'] /= np.sum(sample['hist'])  # normalize
@@ -223,7 +224,7 @@ class Gabor(object):
                     'cls':  d_cls,
                     'hist': d_hist
                 })
-            cPickle.dump(samples, open(os.path.join(
+            pickle.dump(samples, open(os.path.join(
                 cache_dir, sample_cache), "wb", True))
 
         return samples

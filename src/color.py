@@ -5,12 +5,11 @@ from __future__ import print_function
 from evaluate import distance, evaluate_class
 from DB import Database
 
-from six.moves import cPickle
+import pickle
 import numpy as np
-import scipy.misc
+import cv2
 import itertools
 import os
-
 
 # configs for histogram
 n_bin = 12        # histogram bins
@@ -86,7 +85,8 @@ class Color(object):
         if isinstance(input, np.ndarray):  # examinate input type
             img = input.copy()
         else:
-            img = scipy.misc.imread(input, mode='RGB')
+            img = cv2.imread(input, cv2.IMREAD_COLOR)
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         height, width, channel = img.shape
         # slice bins equally for each channel
         bins = np.linspace(0, 256, n_bin+1, endpoint=True)
@@ -139,7 +139,7 @@ class Color(object):
                 h_type, n_bin, n_slice)
 
         try:
-            samples = cPickle.load(
+            samples = pickle.load(
                 open(os.path.join(cache_dir, sample_cache), "rb", True))
             if verbose:
                 print("Using cache..., config=%s, distance=%s, depth=%s" %
@@ -159,7 +159,7 @@ class Color(object):
                     'cls':  d_cls,
                     'hist': d_hist
                 })
-            cPickle.dump(samples, open(os.path.join(
+            pickle.dump(samples, open(os.path.join(
                 cache_dir, sample_cache), "wb", True))
 
         return samples
@@ -171,7 +171,7 @@ if __name__ == "__main__":
     color = Color()
 
     # test normalize
-    hist = color.histogram(data.ix[0, 0], type='global')
+    hist = color.histogram(data.iloc[0, 0], type='global')
     assert hist.sum() - 1 < 1e-9, "normalize false"
 
     # test histogram bins

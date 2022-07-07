@@ -17,8 +17,6 @@ class Database(object):
         self.classes = set(self.data["cls"])
 
     def _gen_csv(self):
-        if os.path.exists(DB_csv):
-            return
         with open(DB_csv, 'w', encoding='UTF-8') as f:
             f.write("img,cls")
             for root, _, files in os.walk(DB_dir, topdown=False):

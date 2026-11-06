@@ -6,7 +6,7 @@ __This repository contains a CBIR (content-based image retrieval) system__
 __Extract query image's feature, and retrieve similar ones from image database__
 
 <img align='center' style="border-color:gray;border-width:2px;border-style:dashed"   src='https://github.com/pochih/CBIR/blob/img/CBIR.png' padding='5px' height="300px"></img>
-<h6><a href='https://winstonhsu.info/2017f-mmai/'>Image src</a></h6>
+<h6><a href='https://winstonhsu.info'>Image src</a></h6>
 
 
 ## Part1: Feature Extraction
